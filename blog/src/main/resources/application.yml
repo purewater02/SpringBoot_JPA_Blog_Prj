@@ -18,11 +18,12 @@ spring:
     url: jdbc:mysql://localhost:3306/blog?serverTimezone=Asia/Seoul
     username: pure
     password: pure1234
-    
+
+# ddel-auto: create로 하면 서버 재시작마다 비어 있는 새 테이블을 생성함.    
   jpa:
     open-in-view: true
     hibernate:
-      ddl-auto: create
+      ddl-auto: update 
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
       use-new-id-generator-mappings: false
