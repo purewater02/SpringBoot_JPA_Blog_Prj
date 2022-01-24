@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 
 import org.hibernate.annotations.CreationTimestamp;
 
@@ -31,7 +32,7 @@ public class Reply {
 	@Column(nullable = false, length = 200)
 	private String content;
 	
-	@ManyToOne //하나의 게시글에 여러개의 답변
+	@ManyToOne //여러개의 답변이 하나의 게시글에 달릴 수 있음.
 	@JoinColumn(name="boardId")
 	private Board board;
 	

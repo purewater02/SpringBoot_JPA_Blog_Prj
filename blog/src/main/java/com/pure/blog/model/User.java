@@ -10,12 +10,14 @@ import javax.persistence.Id;
 
 import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.DynamicInsert;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@DynamicInsert //null인 필드는 제외하고 insert 해줌.
 @Entity //User 클래스가 MySQL에 자동으로 테이블로 생성됨.
 @Data
 @NoArgsConstructor
