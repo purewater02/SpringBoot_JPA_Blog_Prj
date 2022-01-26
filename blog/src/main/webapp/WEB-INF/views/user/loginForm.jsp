@@ -3,7 +3,7 @@
 <%@ include file="../layout/header.jsp"%>
 
 <div class="container">
-	<form action="/action_page.php" class="was-validated">
+	<form>
 		<div class="form-group">
 			<label for="uname">Username:</label> <input type="text" class="form-control" id="username" placeholder="아이디를 입력해주세요." name="username" required>
 		</div>		
@@ -13,11 +13,12 @@
 		<div class="form-group form-check">
 			<label class="form-check-label"> <input class="form-check-input" type="checkbox" name="remember" required> 로그인 상태 유지
 			</label>
-		</div>
-		<button type="submit" class="btn btn-primary">로그인</button>
+		</div>		
 	</form>
+	<button id="btn-login" class="btn btn-primary">로그인</button>
 </div>
 
+<script src="/js/user.js"></script>
 <%@ include file="../layout/footer.jsp"%>
 
 
