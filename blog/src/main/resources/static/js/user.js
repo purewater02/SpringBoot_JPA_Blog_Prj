@@ -3,9 +3,6 @@ let index = {
 		$("#btn-save").on("click", ()=>{
 			this.save();
 		});
-		$("#btn-login").on("click", ()=>{
-			this.login();
-		});
 	},
 	
 	save: function() {
@@ -21,7 +18,7 @@ let index = {
 		$.ajax({
 			//회원가입 수행 요청
 			type: "POST",
-			url: "/api/user",
+			url: "/auth/joinProc",
 			data: JSON.stringify(data), //js object를 JSON형태로 변경. http body 데이터.
 			contentType: "application/json; charset=utf-8" //body 데이터의 타입 지정 (MIME)
 			//dataType: "json" //서버에서 응답이 올 때 문자열로 오는데 문자열 형태가 'json'이라면 => js object로 파싱 해줌.			
@@ -31,9 +28,9 @@ let index = {
 		}).fail(function(error){
 			alert(JSON.stringify(error));			
 		}); //ajax 통신을 이용하여 3개의 데이터를 JSON으로 변경하여 insert 요청.
-	},
+	}
 	
-		login: function() {
+/*		login: function() {
 		let data = {
 			username: $("#username").val(),
 			password: $("#password").val(),			
@@ -53,6 +50,7 @@ let index = {
 			alert(JSON.stringify(error));			
 		}); //ajax 통신을 이용하여 3개의 데이터를 JSON으로 변경하여 insert 요청.
 	}
+*/
 }
 
 index.init();
