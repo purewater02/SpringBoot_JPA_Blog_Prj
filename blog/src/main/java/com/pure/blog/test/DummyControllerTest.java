@@ -17,8 +17,10 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.pure.blog.model.Board;
 import com.pure.blog.model.RoleType;
 import com.pure.blog.model.User;
+import com.pure.blog.repository.BoardRepository;
 import com.pure.blog.repository.UserRepository;
 
 @RestController
@@ -26,6 +28,9 @@ public class DummyControllerTest {
 	
 	@Autowired
 	private UserRepository userRepository;
+	
+	@Autowired
+	private BoardRepository boardRepository;
 	
 	@DeleteMapping("/dummy/user/{id}")
 	public String delete(@PathVariable int id) {
@@ -67,11 +72,10 @@ public class DummyControllerTest {
 	}
 	
 	//한 페이지당 2건에 데이터를 리턴받기 (size=2)
-	@GetMapping("/dummy/user")
-	public List<User> pageList(@PageableDefault(size=2, sort="id", direction = Sort.Direction.DESC) Pageable pageable) {
-		Page<User> pagingUser = userRepository.findAll(pageable);
-		List<User> users = pagingUser.getContent();
-		return users;
+	@GetMapping("/dummy/board")
+	public Page<Board> pageList(@PageableDefault(size=3, sort="id", direction = Sort.Direction.DESC) Pageable pageable) {
+		Page<Board> pagingBoard = boardRepository.findAll(pageable);		
+		return pagingBoard;
 	}
 	
 	
