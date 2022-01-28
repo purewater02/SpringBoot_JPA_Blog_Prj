@@ -3,6 +3,9 @@ let index = {
 		$("#btn-save").on("click", ()=>{
 			this.save();
 		});
+		$("#btn-update").on("click", ()=>{
+			this.update();
+		});
 	},
 	
 	save: function() {
@@ -28,7 +31,30 @@ let index = {
 		}).fail(function(error){
 			alert(JSON.stringify(error));			
 		}); //ajax 통신을 이용하여 3개의 데이터를 JSON으로 변경하여 insert 요청.
-	}
+	},
+	
+	update: function() {
+		let data = {
+			id: $("#id").val(),
+			username: $("#username").val(),
+			password: $("#password").val(),
+			email: $("#email").val()
+		};
+		
+		$.ajax({			
+			type: "PUT",
+			url: "/user/update",
+			data: JSON.stringify(data), //js object를 JSON형태로 변경. http body 데이터.
+			contentType: "application/json; charset=utf-8", //body 데이터의 타입 지정 (MIME)
+			dataType: "json" //서버에서 응답이 올 때 문자열로 오는데 문자열 형태가 'json'이라면 => js object로 파싱 해줌.			
+		}).done(function(resp){			
+			alert("회원정보수정이 완료되었습니다.");
+			location.href="/";
+		}).fail(function(error){
+			alert(JSON.stringify(error));			
+		});
+	}	
+	
 	
 /*		login: function() {
 		let data = {
