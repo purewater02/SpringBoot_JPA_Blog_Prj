@@ -44,6 +44,8 @@ public class User {
 	@Enumerated(EnumType.STRING)
 	private RoleType role; // USER, ADMIN 두개만 들어갈 수 있도록 설정.
 	
+	private String oauth; //kakao, google 등
+	
 	@CreationTimestamp //시간이 자동으로 입력됨
 	private Timestamp createDate;
 }

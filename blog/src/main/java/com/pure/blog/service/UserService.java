@@ -19,6 +19,14 @@ public class UserService {
 	@Autowired
 	private BCryptPasswordEncoder encoder;
 	
+	@Transactional(readOnly = true)
+	public User 회원찾기(String username) {
+		User user = userRepository.findByUsername(username).orElseGet(() -> {
+			return new User();
+		})	;	
+		return user;
+	}
+	
 	@Transactional //내부 기능이 모두 정상작동 하면 commit, 하나라도 실패하면 rollback
 	public int  회원가입(User user) {
 		try {
@@ -44,10 +52,16 @@ public class UserService {
 				.orElseThrow(() -> {
 					return new IllegalArgumentException("회원 찾기 실패");
 				});
-		String rawPassword = user.getPassword();
-		String encPassword = encoder.encode(rawPassword);
-		persistance.setPassword(encPassword);
-		persistance.setEmail(user.getEmail());
+		
+		//카카오 사용자가 아닐경우에만 수정 가능.
+		if(persistance.getOauth() == null || persistance.getOauth().equals("")) {
+			String rawPassword = user.getPassword();
+			String encPassword = encoder.encode(rawPassword);
+			persistance.setPassword(encPassword);
+			persistance.setEmail(user.getEmail());
+		}	
+
+
 		// 회원수정 함수 종료 == 서비스 종료 == 트랜잭션 종료 --> 자동 커밋 (더티체킹)
 	}
 
