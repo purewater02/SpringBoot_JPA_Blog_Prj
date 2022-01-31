@@ -27,8 +27,12 @@ public class UserApiController {
 	@PostMapping("/auth/joinProc")
 	public ResponseDto<Integer> save(@RequestBody User user) {
 		System.out.println("UserApiController: save 호출됨");
-		int result = userService.회원가입(user);		
-		return new ResponseDto<Integer>(HttpStatus.OK.value(), result); //(status, data)
+		int result = userService.회원가입(user);
+		if(result == -1) {
+			return new ResponseDto<Integer>(HttpStatus.INTERNAL_SERVER_ERROR.value(), result);
+		}else {
+			return new ResponseDto<Integer>(HttpStatus.OK.value(), result); //(status, data)
+		}		
 	}
 	
 	@PutMapping("/user/update")

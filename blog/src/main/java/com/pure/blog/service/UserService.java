@@ -28,19 +28,18 @@ public class UserService {
 	}
 	
 	@Transactional //내부 기능이 모두 정상작동 하면 commit, 하나라도 실패하면 rollback
-	public int  회원가입(User user) {
-		try {
-			String rawPassword = user.getPassword();
-			String encPassword = encoder.encode(rawPassword);
-			user.setPassword(encPassword);
-			user.setRole(RoleType.USER);
-			userRepository.save(user);
-			return 1;
-		} catch (Exception e) {
-			e.printStackTrace();
-			System.out.println("UserService: 회원가입() : " + e.getMessage());
-		}
-		return -1;
+	public int  회원가입(User user) {		
+			try {
+				userRepository.findByUsername(user.getUsername()).get(); //가입한 적이 없어서 username이 매칭되지 않으면 exception 발생
+				return -1;				
+			} catch (Exception e) {	//exception이 발생하면 정상적으로 회원가입 처리.
+				String rawPassword = user.getPassword();
+				String encPassword = encoder.encode(rawPassword);
+				user.setPassword(encPassword);
+				user.setRole(RoleType.USER);
+				userRepository.save(user);
+				return 1;
+			}
 	}
 
 	@Transactional
