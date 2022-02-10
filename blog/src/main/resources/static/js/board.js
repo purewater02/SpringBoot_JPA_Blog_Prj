@@ -89,6 +89,19 @@ let index = {
 		}).fail(function(error){
 			alert(JSON.stringify(error));			
 		}); 
+	},
+
+	replyDelete: function(boardId, replyId) {		
+		$.ajax({			
+			type: "DELETE",
+			url: `/api/board/${boardId}/replyDelete/${replyId}`, //백틱은 js 변수를 문자열로 담기 위함.
+			dataType: "json"
+		}).done(function(resp){			
+			alert("댓글 삭제가 완료되었습니다.");
+			location.href=`/board/${boardId}`;
+		}).fail(function(error){
+			alert(JSON.stringify(error));			
+		}); 
 	}
 	
 }

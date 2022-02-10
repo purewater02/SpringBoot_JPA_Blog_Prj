@@ -3,6 +3,7 @@ package com.pure.blog.model;
 import java.sql.Timestamp;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -48,7 +49,7 @@ public class Board {
 	@JoinColumn(name="userId") //userId가 FK로 생성됨
 	private User user; // DB는 오브젝트를 저장할 수 없다. --> FK 사용. 하지만 자바는 오브젝트를 저장할 수 있다.
 		
-	@OneToMany(mappedBy = "board", fetch = FetchType.EAGER) //하나의 게시글에 여러개의 댓글이 달릴 수 있음.	/ mappedBy --> 연관관계의 주인이 아님.(FK가 아님을 뜻함.) = DB에 컬럼을 만들지 말아라.
+	@OneToMany(mappedBy = "board", fetch = FetchType.EAGER, cascade = CascadeType.REMOVE) //하나의 게시글에 여러개의 댓글이 달릴 수 있음.	/ mappedBy --> 연관관계의 주인이 아님.(FK가 아님을 뜻함.) = DB에 컬럼을 만들지 말아라.
 	@JsonIgnoreProperties({"board"})
 	@OrderBy("id desc")
 	private List<Reply> replys;
